@@ -8,8 +8,8 @@ export default function BottomBar({ image, title, session }) {
                     <img src={image} />
                 </ImageContainer>
                 <Info>
-                    <p>{title}</p>
-                    <p>{session}</p>
+                    <p>{title}</p> 
+                    <p>{session ? (session.day.weekday + " - " + session.name) : ""}</p>
                 </Info>
 
 
@@ -33,6 +33,8 @@ const Footer = styled.div`
     height: 120px;
 
     padding: 10px;
+
+    border-top: 1px solid #9EADBA;
 
     background-color: #9EADBA;
 

@@ -49,7 +49,7 @@ export default function Sessions() {
 
             </Container>
 
-            <BottomBar image={movie.posterURL} title={movie.title} />
+            <BottomBar image={movie.posterURL} title={movie.title} session={null}/>
 
         </>
     )
