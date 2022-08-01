@@ -21,7 +21,7 @@ const Container = styled.div`
 
     width: 100%;
 
-    margin-top: 50px;
+    margin-top: 100px;
 
     h1 {
         color: #293845;

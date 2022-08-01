@@ -15,6 +15,10 @@ const Container = styled.div`
     width: 100%;
     height: 70px;
 
+    position: fixed;
+    top: 0;
+    left: 0;
+
     font-size: 34px;
 
     color: #E8833A;
