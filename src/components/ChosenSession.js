@@ -8,6 +8,7 @@ export default function ChosenSession() {
     const params = useParams();
     const [session, setSession] = useState(null);
     const [selected, setSelected] = useState([]);
+    const [nselected, setNSelected] = useState([]);
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function ChosenSession() {
     }, []);
 
     function setColor(seat) {
-        if (seat.isAvailable && selected.includes(seat.name))
+        if (seat.isAvailable && selected.includes(seat.id))
             return "#8DD7CF";
         else if (seat.isAvailable)
             return "#C3CFD9";
@@ -27,7 +28,7 @@ export default function ChosenSession() {
     }
 
     function setBorderColor(seat) {
-        if (seat.isAvailable && selected.includes(seat.name))
+        if (seat.isAvailable && selected.includes(seat.id))
             return "#1AAE9E";
         else if (seat.isAvailable)
             return "#7B8B99";
@@ -41,17 +42,24 @@ export default function ChosenSession() {
             return;
         }
 
-        if (selected.includes(seat.name)) {
-            const newSelected = selected.filter(s => seat.name != s);
+        if (selected.includes(seat.id)) {
+            let newSelected = selected.filter(s => seat.id != s);
             setSelected(newSelected);
+            newSelected = nselected.filter(s => seat.name != s);
+            setNSelected(newSelected);
         }
         else {
-            setSelected([...selected, seat.name]);
+            setSelected([...selected, seat.id]);
+            setNSelected([...nselected, seat.name]);
         }
     }
 
     function HandleForm (event) {
         event.preventDefault();
+
+        if (selected.length == 0){
+            alert("Escolha pelo menos um assento");
+        }
 
         const promise = axios.post("https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many", 
         {
@@ -59,13 +67,15 @@ export default function ChosenSession() {
             name: name,
             cpf: cpf
         });
-        promise.then((resposta) => {console.log(resposta)})
+        promise.then((resposta) => {console.log(resposta)});
+
+        console.log(selected);
 
         navigate('/sucess', {state: {
             movie: session.movie.title,
             day: session.day.date,
             time: session.name,
-            seats: [...selected],
+            seats: [...nselected],
             name: name,
             cpf: cpf
             }});
