@@ -61,8 +61,6 @@ export default function ChosenSession() {
         });
         promise.then((resposta) => {console.log(resposta)})
 
-        console.log(selected);
-
         navigate('/sucess', {state: {
             movie: session.movie.title,
             day: session.day.date,
@@ -248,8 +246,12 @@ const SubmitButton = styled.button`
 
         margin-top: 30px;
 
+        border: none;
+
         border-radius: 10px;
 
         background-color: #E8833A;
         color: #FFFFFF;
+
+        font-size: 18px;
 `
